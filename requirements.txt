@@ -1,0 +1,5 @@
+numpy
+panda
+tqdm
+requests
+beautifulsoup4
