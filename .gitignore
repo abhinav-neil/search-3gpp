@@ -3,3 +3,5 @@
 
 # folders
 __pycache__/
+data/
+elasticsearch-7.10.0-amd64.deb

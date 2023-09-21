@@ -4,3 +4,8 @@ tqdm
 requests
 ipykernel
 beautifulsoup4
+elasticsearch
+
+# linux packages
+# antiword
+# elasticsearch

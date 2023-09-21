@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>3GPP Doc Search</title>
+</head>
+<body>
+    <h1>3GPP Document Search</h1>
+    <form action="/" method="post">
+        <input type="text" name="query" placeholder="Enter 3GPP spec" value="{{ query }}">
+        <input type="submit" value="Search">
+    </form>
+    <h2>Results:</h2>
+    <ul>
+        {% for result in results %}
+            <li>
+                <strong>Filename:</strong> {{ result.filename }} <br>
+                <strong>URL:</strong> <a href="{{ result.url }}" target="_blank">{{ result.url }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
