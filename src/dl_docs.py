@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+# Description: Downloads zip files from the 3GPP website.
+
 # Imports
 import os
 import requests
@@ -73,14 +74,15 @@ def download_docs_from_3gpp(url, save_dir='../downloaded_files', max_files=None)
             for chunk in zip_response.iter_content(chunk_size=8192):
                 file.write(chunk)
         
-    print("Done!")
+    print("done!")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Download zip files from 3GPP website.")
     parser.add_argument("--url", default="https://www.3gpp.org/ftp/Specs/2023-06", help="Base URL of the 3GPP website to scrape.")
     parser.add_argument("--save_dir", default="../downloaded_files", help="Directory to save the downloaded zip files.")
+    parser.add_argument("--max_files", default=None, type=int, help="Maximum number of files to download.")
     
     args = parser.parse_args()
 
-    download_docs_from_3gpp(args.url, args.save_dir)
-    print(f"Zip files downloaded to {args.save_dir}/")
+    download_docs_from_3gpp(args.url, args.save_dir, args.max_files)
+    print(f"files downloaded to {args.save_dir}/")

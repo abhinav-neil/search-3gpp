@@ -4,6 +4,7 @@ import os
 from elasticsearch import Elasticsearch, helpers
 from process_docs import preprocess_text
 from pathlib import Path
+import argparse
 
 def index_files_to_es(es, idx_name='3gpp_docs', docs_dir='../data/raw_docs', reset_idx=True):
     """
@@ -63,8 +64,6 @@ def search_docs(es, term, idx_name='3gpp_docs'):
     for hit in response["hits"]["hits"]:
         doc_info = {
             "filename": hit["_source"]["filename"],
-            # Assuming the URL is stored in a field named "url" in the index
-            # If it's named differently, adjust the field name accordingly
             "url": hit["_source"].get("url", "URL not available")  
         }
         matching_docs.append(doc_info)
@@ -72,3 +71,18 @@ def search_docs(es, term, idx_name='3gpp_docs'):
     return matching_docs
 
 
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Index .txt files to Elasticsearch.')
+    parser.add_argument('--docs_dir', type=str, default='../data/raw_docs',
+                        help='Path to the directory containing .txt files.')
+    parser.add_argument('--idx_name', type=str, default='3gpp_docs',
+                        help='Name of the Elasticsearch index.')
+    parser.add_argument('--reset_idx', type=bool, default=True,
+                        help='Whether to delete the index if it already exists.')
+    args = parser.parse_args()
+    
+    # Create an Elasticsearch client instance
+    es = Elasticsearch("http://localhost:9200")
+    
+    # Index the files to Elasticsearch
+    index_files_to_es(es, args.idx_name, args.docs_dir, args.reset_idx)

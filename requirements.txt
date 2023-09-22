@@ -4,7 +4,7 @@ tqdm
 requests
 ipykernel
 beautifulsoup4
-elasticsearch
+elasticsearch==7.17.9
 
 # linux packages
 # antiword

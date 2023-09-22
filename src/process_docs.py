@@ -1,8 +1,10 @@
+# Description: Contains functions to process .doc files. Run this script to extract text from .doc files.
+
 import os
 from tqdm import tqdm
 import string
+import argparse
 
-import os
 
 def doc2txt(src_dir='../data/downloaded_docs', dest_dir='../data/raw_docs'):
     """
@@ -52,4 +54,12 @@ def preprocess_text(text):
     
     return tokens
 
-
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Process .doc files.')
+    parser.add_argument('--src_dir', type=str, default='../data/downloaded_docs',
+                        help='Path to the source directory containing .doc files.')
+    parser.add_argument('--dest_dir', type=str, default='../data/raw_docs',
+                        help='Path to the destination directory to save extracted .txt files.')
+    args = parser.parse_args()
+    
+    doc2txt(args.src_dir, args.dest_dir)

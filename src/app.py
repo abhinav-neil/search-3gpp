@@ -6,6 +6,9 @@ es = Elasticsearch("http://localhost:9200")
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    '''
+    Renders the index page and handles search queries.
+    '''
     results = []
     query = ""
     if request.method == 'POST':
@@ -24,6 +27,12 @@ def index():
 
 @app.route('/files/<action>/<path:filename>', methods=['GET'])
 def serve_file(action, filename):
+    '''
+    Serves the specified file for download or viewing.
+    Inputs:
+        action: Either "download" or "view".
+        filename: Name of the file to serve.
+    '''
     if action == "download":
         return send_from_directory('/home/neil/docscan-philips/data/raw_docs/', filename, as_attachment=True)
     elif action == "view":
