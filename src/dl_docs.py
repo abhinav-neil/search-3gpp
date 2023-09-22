@@ -79,7 +79,7 @@ def download_docs_from_3gpp(url, save_dir='../downloaded_files', max_files=None)
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Download zip files from 3GPP website.")
     parser.add_argument("--url", default="https://www.3gpp.org/ftp/Specs/2023-06", help="Base URL of the 3GPP website to scrape.")
-    parser.add_argument("--save_dir", default="../downloaded_files", help="Directory to save the downloaded zip files.")
+    parser.add_argument("--save_dir", default="data/downloaded_docs", help="Directory to save the downloaded zip files.")
     parser.add_argument("--max_files", default=None, type=int, help="Maximum number of files to download.")
     
     args = parser.parse_args()

@@ -56,9 +56,9 @@ def preprocess_text(text):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process .doc files.')
-    parser.add_argument('--src_dir', type=str, default='../data/downloaded_docs',
+    parser.add_argument('--src_dir', type=str, default='data/downloaded_docs',
                         help='Path to the source directory containing .doc files.')
-    parser.add_argument('--dest_dir', type=str, default='../data/raw_docs',
+    parser.add_argument('--dest_dir', type=str, default='data/raw_docs',
                         help='Path to the destination directory to save extracted .txt files.')
     args = parser.parse_args()
     

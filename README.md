@@ -2,8 +2,8 @@
 
 This repository provides tools to download, process, and search through 3GPP documents via an inverted index, using Elasticsearch and Flask.
 
-## Features
-
+## Scripts
+- **main.ipynb**: A Jupyter notebook to run all the scripts in order.
 - **dl_docs.py**: Download documents (in .zip format) from a 3GPP website.
 - **process_docs.py**: Scan '.doc' files, extract raw text, and save them as '.txt' files.
 - **inverse_index.py**: Tokenize the '.txt' files and index them using Elasticsearch. Also contains a function to search for documents directly.
@@ -15,7 +15,7 @@ This repository provides tools to download, process, and search through 3GPP doc
 ### Environment Setup
 
 ```bash
-conda create -n search-3gpp python==3.11.4
+conda create -n search-3gpp python==3.11
 conda activate search-3gpp
 pip install -r requirements.txt
 ```
@@ -26,13 +26,11 @@ Install the following libraries on your OS:
 
 ```bash
 # For antiword
-sudo apt-get install antiword
+!sudo apt-get install antiword
 
 # For Elasticsearch (assuming Debian/Ubuntu)
-wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
-sudo apt-get install apt-transport-https
-echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
-sudo apt-get update && sudo apt-get install elasticsearch
+!wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.10.0-amd64.deb
+!sudo apt-get update && sudo dpkg -i elasticsearch-7.10.0-amd64.deb
 ```
 
 ### Directory Structure

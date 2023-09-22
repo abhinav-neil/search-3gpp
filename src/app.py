@@ -4,9 +4,12 @@ from flask import Flask, render_template, request, send_from_directory
 from elasticsearch import Elasticsearch
 import argparse
 import os
+import logging
 
-app = Flask(__name__)
-es = Elasticsearch("http://localhost:9200")
+app = Flask(__name__)   # create our flask app
+es = Elasticsearch("http://localhost:9200")  # create an Elasticsearch client instance
+logging.basicConfig(level=logging.DEBUG)    # set logging level to DEBUG
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -37,6 +40,10 @@ def serve_file(action, filename):
         action: Either "download" or "view".
         filename: Name of the file to serve.
     '''
+    # check file path for serving
+    filepath = os.path.join(app.config['DOC_DIR'], filename)
+    logging.debug(f"Filepath: {filepath}")
+    
     if action == "download":
         return send_from_directory(app.config['DOC_DIR'], filename, as_attachment=True)
     elif action == "view":
