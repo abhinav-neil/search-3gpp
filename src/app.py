@@ -1,5 +1,9 @@
+# Description: Flask app for 3GPP Document Search.
+
 from flask import Flask, render_template, request, send_from_directory
 from elasticsearch import Elasticsearch
+import argparse
+import os
 
 app = Flask(__name__)
 es = Elasticsearch("http://localhost:9200")
@@ -13,7 +17,7 @@ def index():
     query = ""
     if request.method == 'POST':
         query = request.form['query']
-        response = es.search(index='3gpp_docs', body={"query": {"match": {"content": query}}})
+        response = es.search(index=app.config['IDX_NAME'], body={"query": {"match": {"content": query}}})
         for hit in response["hits"]["hits"]:
             filename = hit["_source"]["filename"]
             download_url = f"/files/download/{filename}"
@@ -34,12 +38,21 @@ def serve_file(action, filename):
         filename: Name of the file to serve.
     '''
     if action == "download":
-        return send_from_directory('/home/neil/docscan-philips/data/raw_docs/', filename, as_attachment=True)
+        return send_from_directory(app.config['DOC_DIR'], filename, as_attachment=True)
     elif action == "view":
-        return send_from_directory('/home/neil/docscan-philips/data/raw_docs/', filename, as_attachment=False)
+        return send_from_directory(app.config['DOC_DIR'], filename, as_attachment=False)
     else:
         return "Invalid action", 400
 
-
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Run Flask app for 3GPP Document Search.')
+    parser.add_argument('--doc_dir', type=str, default='data/raw_docs', help="Directory containing the .txt documents.")
+    parser.add_argument('--idx_name', type=str, default='3gpp_docs', help="Name of the Elasticsearch index.")
+    
+    args = parser.parse_args()
+    
+    # Store the parsed arguments in Flask's app.config
+    app.config['DOC_DIR'] = os.path.abspath(args.doc_dir)
+    app.config['IDX_NAME'] = args.idx_name
+
     app.run(debug=True)

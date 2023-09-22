@@ -11,10 +11,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;  /* Align content to the top */
+            padding-top: 10%;             /* Add some spacing from the top edge */
             height: 100vh;
             margin: 0;
         }
+    
         h1, h2, form {
             margin-bottom: 20px;
         }
@@ -40,13 +42,6 @@
     </form>
     <h2>Results</h2>
     <table>
-        <!-- <thead>
-            <tr>
-                <th>Filename</th>
-                <th>View</th>
-                <th>Download</th>
-            </tr>
-        </thead> -->
         <tbody>
             {% for result in results %}
                 <tr>

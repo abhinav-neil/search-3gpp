@@ -43,6 +43,7 @@ def index_files_to_es(es, idx_name='3gpp_docs', docs_dir='../data/raw_docs', res
     
     # Use the bulk helper function to index the data
     helpers.bulk(es, generate_bulk_data())
+    print("Indexed files to Elasticsearch.")
     
 def search_docs(es, term, idx_name='3gpp_docs'):
     """
@@ -73,7 +74,7 @@ def search_docs(es, term, idx_name='3gpp_docs'):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Index .txt files to Elasticsearch.')
-    parser.add_argument('--docs_dir', type=str, default='../data/raw_docs',
+    parser.add_argument('--docs_dir', type=str, default='data/raw_docs',
                         help='Path to the directory containing .txt files.')
     parser.add_argument('--idx_name', type=str, default='3gpp_docs',
                         help='Name of the Elasticsearch index.')
