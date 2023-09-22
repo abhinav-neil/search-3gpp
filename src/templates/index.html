@@ -2,6 +2,35 @@
 <html>
 <head>
     <title>3GPP Doc Search</title>
+    <!-- Import Roboto font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Apply Roboto font to the body */
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1, h2, form {
+            margin-bottom: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 50%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
     <h1>3GPP Document Search</h1>
@@ -9,14 +38,24 @@
         <input type="text" name="query" placeholder="Enter 3GPP spec" value="{{ query }}">
         <input type="submit" value="Search">
     </form>
-    <h2>Results:</h2>
-    <ul>
-        {% for result in results %}
-            <li>
-                <strong>Filename:</strong> {{ result.filename }} <br>
-                <strong>URL:</strong> <a href="{{ result.url }}" target="_blank">{{ result.url }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+    <h2>Results</h2>
+    <table>
+        <!-- <thead>
+            <tr>
+                <th>Filename</th>
+                <th>View</th>
+                <th>Download</th>
+            </tr>
+        </thead> -->
+        <tbody>
+            {% for result in results %}
+                <tr>
+                    <td>{{ result.filename }}</td>
+                    <td><a href="{{ result.view_url }}" target="_blank">View</a></td>
+                    <td><a href="{{ result.download_url }}" download>Download</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
